@@ -1,13 +1,16 @@
 class_name World
 extends Node2D
-## Owns the ground and generates / tracks resource deposits.
+## The ground. Generates deposits and decorative props into the Y-sorted entity layers.
 
 @export var ore_scene: PackedScene
 @export var crystal_scene: PackedScene
+@export var tree_scene: PackedScene
+@export var rock_scene: PackedScene
 
 var deposits := {}  # Vector2i -> ResourceDeposit
-
-@onready var deposits_root: Node2D = $Deposits
+var props := {}  # Vector2i -> Node2D (blocks building)
+var deposits_root: Node2D
+var props_root: Node2D
 
 
 func generate() -> void:
@@ -33,6 +36,27 @@ func generate() -> void:
 		for x in range(-1, 2):
 			for y in range(-1, 2):
 				spawn_deposit(Defs.CORE_CELL + Vector2i(9 + x, y), "ore", 300)
+	_generate_props()
+
+
+func _generate_props() -> void:
+	for x in Defs.W:
+		for y in Defs.H:
+			var c := Vector2i(x, y)
+			if deposits.has(c) or c.distance_to(Defs.CORE_CELL) < 6.0:
+				continue
+			var r := randf()
+			if r < 0.018:
+				_spawn_prop(c, tree_scene)
+			elif r < 0.03:
+				_spawn_prop(c, rock_scene)
+
+
+func _spawn_prop(cell: Vector2i, scene: PackedScene) -> void:
+	var p: Node2D = scene.instantiate()
+	p.position = Defs.cell_center(cell)
+	props_root.add_child(p)
+	props[cell] = p
 
 
 func spawn_deposit(cell: Vector2i, item: String, amount: int) -> void:
@@ -48,6 +72,10 @@ func spawn_deposit(cell: Vector2i, item: String, amount: int) -> void:
 
 func _on_depleted(cell: Vector2i) -> void:
 	deposits.erase(cell)
+
+
+func prop_at(cell: Vector2i) -> bool:
+	return props.has(cell)
 
 
 func resource_at(cell: Vector2i) -> ResourceDeposit:

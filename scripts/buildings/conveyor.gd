@@ -17,7 +17,7 @@ func accepts(_item: String) -> bool:
 func receive(new_item: String) -> void:
 	item = new_item
 	progress = 0.0
-	dot.texture = Defs.ITEM_TEXTURES[new_item]
+	dot.texture = Items.icon(new_item)
 	dot.show()
 
 
@@ -26,7 +26,7 @@ func _process(delta: float) -> void:
 		return
 	progress += delta
 	var dir := Vector2(Defs.DIRS[facing])
-	dot.position = dir * (clampf(progress / MOVE_TIME, 0.0, 1.0) - 0.5) * 14.0
+	dot.position = dir * (clampf(progress / MOVE_TIME, 0.0, 1.0) - 0.5) * 14.0 + Vector2(0, -3)
 	if progress >= MOVE_TIME and game.deliver(cell + Defs.DIRS[facing], item):
 		item = ""
 		dot.hide()

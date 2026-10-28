@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/shadow_large.png" id="ext1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tree.png" id="ext2"]
+
+[node name="Tree" type="Node2D"]
+
+[node name="Shadow" type="Sprite2D" parent="."]
+texture = ExtResource("ext1")
+position = Vector2(0, 12)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("ext2")
+centered = false
+offset = Vector2(-24, -56)

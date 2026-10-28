@@ -1,43 +1,110 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://scripts/buildings/drill.gd" id="ext1"]
-[ext_resource type="Texture2D" path="res://assets/sprites/drill.png" id="ext2"]
-[ext_resource type="PackedScene" path="res://scenes/ui/stat_bar.tscn" id="ext3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/shadow.png" id="ext2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/drill.png" id="ext3"]
+[ext_resource type="PackedScene" path="res://scenes/ui/stat_bar.tscn" id="ext4"]
 
 [sub_resource type="AtlasTexture" id="sub1"]
-atlas = ExtResource("ext2")
-region = Rect2(0, 0, 32, 32)
+atlas = ExtResource("ext3")
+region = Rect2(0, 0, 32, 48)
 
 [sub_resource type="AtlasTexture" id="sub2"]
-atlas = ExtResource("ext2")
-region = Rect2(32, 0, 32, 32)
+atlas = ExtResource("ext3")
+region = Rect2(32, 0, 32, 48)
 
-[sub_resource type="SpriteFrames" id="sub3"]
+[sub_resource type="AtlasTexture" id="sub3"]
+atlas = ExtResource("ext3")
+region = Rect2(64, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="sub4"]
+atlas = ExtResource("ext3")
+region = Rect2(96, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="sub5"]
+atlas = ExtResource("ext3")
+region = Rect2(128, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="sub6"]
+atlas = ExtResource("ext3")
+region = Rect2(160, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="sub7"]
+atlas = ExtResource("ext3")
+region = Rect2(192, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="sub8"]
+atlas = ExtResource("ext3")
+region = Rect2(224, 0, 32, 48)
+
+[sub_resource type="SpriteFrames" id="sub9"]
 animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("sub1")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("sub2")
 }],
 "loop": true,
-"name": &"default",
+"name": &"e",
+"speed": 6
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("sub3")
+}, {
+"duration": 1.0,
+"texture": SubResource("sub4")
+}],
+"loop": true,
+"name": &"s",
+"speed": 6
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("sub5")
+}, {
+"duration": 1.0,
+"texture": SubResource("sub6")
+}],
+"loop": true,
+"name": &"w",
+"speed": 6
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("sub7")
+}, {
+"duration": 1.0,
+"texture": SubResource("sub8")
+}],
+"loop": true,
+"name": &"n",
 "speed": 6
 }]
 
 [node name="Drill" type="Node2D"]
 script = ExtResource("ext1")
+facing_animations = true
 
-[node name="Pivot" type="Node2D" parent="."]
+[node name="Shadow" type="Sprite2D" parent="."]
+texture = ExtResource("ext2")
+position = Vector2(0, 12)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="Pivot"]
-sprite_frames = SubResource("sub3")
-autoplay = "default"
+[node name="Body" type="Node2D" parent="."]
+position = Vector2(0, 16)
 
-[node name="HealthBar" parent="." instance=ExtResource("ext3")]
-position = Vector2(-14, -22)
+[node name="Sprite" type="AnimatedSprite2D" parent="Body"]
+sprite_frames = SubResource("sub9")
+animation = &"e"
+autoplay = "e"
+centered = false
+offset = Vector2(-16, -48)
+
+[node name="HealthBar" parent="." instance=ExtResource("ext4")]
+position = Vector2(-14, -40)
+z_index = 10
 width = 28
 fill_color = Color(1, 0.4, 0.3, 1)
 visible = false

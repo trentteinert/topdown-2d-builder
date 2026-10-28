@@ -7,6 +7,7 @@ const H := 60
 const CORE_CELL := Vector2i(45, 30)
 const DIRS := [Vector2i(1, 0), Vector2i(0, 1), Vector2i(-1, 0), Vector2i(0, -1)]
 const DIR_NAMES := ["East", "South", "West", "North"]
+const DIR_KEYS := ["e", "s", "w", "n"]
 
 enum Build { NONE, DRILL, CONVEYOR, TURRET, TESLA }
 
@@ -14,7 +15,7 @@ const COST := {
 	Build.DRILL: {"ore": 10},
 	Build.CONVEYOR: {"ore": 1},
 	Build.TURRET: {"ore": 15},
-	Build.TESLA: {"ore": 10, "crystal": 8},
+	Build.TESLA: {"ore": 10, "crystal": 8, "scrap": 5},
 }
 const NAMES := {
 	Build.DRILL: "Drill",
@@ -22,9 +23,11 @@ const NAMES := {
 	Build.TURRET: "Gun turret",
 	Build.TESLA: "Tesla coil",
 }
-const ITEM_TEXTURES := {
-	"ore": preload("res://assets/sprites/item_ore.png"),
-	"crystal": preload("res://assets/sprites/item_crystal.png"),
+const BUILD_ICONS := {
+	Build.DRILL: preload("res://assets/sprites/ico_drill.png"),
+	Build.CONVEYOR: preload("res://assets/sprites/ico_conveyor.png"),
+	Build.TURRET: preload("res://assets/sprites/ico_turret.png"),
+	Build.TESLA: preload("res://assets/sprites/ico_tesla.png"),
 }
 
 

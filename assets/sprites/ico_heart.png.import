@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdlp5l4xmlu3i"
-path="res://.godot/imported/item_crystal.png-bb864b8340243cd96d4696894509c31a.ctex"
+uid="uid://cgif42ianr764"
+path="res://.godot/imported/ico_heart.png-35a8d5873bd37302065fe56e355f94cd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/item_crystal.png"
-dest_files=["res://.godot/imported/item_crystal.png-bb864b8340243cd96d4696894509c31a.ctex"]
+source_file="res://assets/sprites/ico_heart.png"
+dest_files=["res://.godot/imported/ico_heart.png-35a8d5873bd37302065fe56e355f94cd.ctex"]
 
 [params]
 

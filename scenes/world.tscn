@@ -1,17 +1,22 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="ext1"]
 [ext_resource type="PackedScene" path="res://scenes/deposits/ore.tscn" id="ext2"]
 [ext_resource type="PackedScene" path="res://scenes/deposits/crystal.tscn" id="ext3"]
-[ext_resource type="Texture2D" path="res://assets/sprites/ground.png" id="ext4"]
+[ext_resource type="PackedScene" path="res://scenes/props/tree.tscn" id="ext4"]
+[ext_resource type="PackedScene" path="res://scenes/props/rock.tscn" id="ext5"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ground.png" id="ext6"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("ext1")
+z_index = -10
 ore_scene = ExtResource("ext2")
 crystal_scene = ExtResource("ext3")
+tree_scene = ExtResource("ext4")
+rock_scene = ExtResource("ext5")
 
 [node name="Ground" type="TextureRect" parent="."]
-texture = ExtResource("ext4")
+texture = ExtResource("ext6")
 layout_mode = 0
 offset_right = 2880.0
 offset_bottom = 1920.0
@@ -21,8 +26,6 @@ stretch_mode = 1
 
 [node name="Border" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 2880, 0, 2880, 1920, 0, 1920)
-width = 4
+width = 4.0
 default_color = Color(0.5, 0.2, 0.3, 1)
 closed = true
-
-[node name="Deposits" type="Node2D" parent="."]

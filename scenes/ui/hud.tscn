@@ -1,10 +1,15 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="ext1"]
+[ext_resource type="Theme" path="res://assets/ui/theme.tres" id="ext2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/resource_counter.tscn" id="ext3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ico_heart.png" id="ext4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ico_core.png" id="ext5"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ico_sun.png" id="ext6"]
 
 [sub_resource type="LabelSettings" id="sub1"]
-font_size = 16
-outline_size = 5
+font_size = 14
+outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="sub2"]
@@ -12,11 +17,26 @@ font_size = 44
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="sub3"]
+font_size = 18
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="sub4"]
+bg_color = Color(0.9, 0.25, 0.3, 1)
+
+[sub_resource type="StyleBoxFlat" id="sub5"]
+bg_color = Color(0.3, 0.9, 0.5, 1)
+
+[sub_resource type="StyleBoxFlat" id="sub6"]
+bg_color = Color(0.98, 0.8, 0.3, 1)
+
 [node name="HUD" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("ext1")
 
-[node name="Margin" type="MarginContainer" parent="."]
+[node name="Root" type="Control" parent="."]
+theme = ExtResource("ext2")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,49 +44,225 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 8
 
-[node name="Layout" type="VBoxContainer" parent="Margin"]
+[node name="Vitals" type="PanelContainer" parent="Root"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 232.0
+offset_bottom = 84.0
+mouse_filter = 2
+
+[node name="Rows" type="VBoxContainer" parent="Root/Vitals"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Status" type="Label" parent="Margin/Layout"]
+[node name="PlayerRow" type="HBoxContainer" parent="Root/Vitals/Rows"]
 layout_mode = 2
-label_settings = SubResource("sub1")
-
-[node name="Resources" type="Label" parent="Margin/Layout"]
-layout_mode = 2
-label_settings = SubResource("sub1")
-
-[node name="Vitals" type="Label" parent="Margin/Layout"]
-layout_mode = 2
-label_settings = SubResource("sub1")
-
-[node name="Selection" type="Label" parent="Margin/Layout"]
-layout_mode = 2
-label_settings = SubResource("sub1")
-
-[node name="Spacer" type="Control" parent="Margin/Layout"]
-layout_mode = 2
-size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="Hints" type="Label" parent="Margin/Layout"]
+[node name="PlayerRowIcon" type="TextureRect" parent="Root/Vitals/Rows/PlayerRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(26, 26)
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture_filter = 1
+texture = ExtResource("ext4")
+
+[node name="PlayerBar" type="ProgressBar" parent="Root/Vitals/Rows/PlayerRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(150, 18)
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.001
+value = 1.0
+show_percentage = false
+mouse_filter = 2
+theme_override_styles/fill = SubResource("sub4")
+
+[node name="CoreRow" type="HBoxContainer" parent="Root/Vitals/Rows"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CoreRowIcon" type="TextureRect" parent="Root/Vitals/Rows/CoreRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(26, 26)
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture_filter = 1
+texture = ExtResource("ext5")
+
+[node name="CoreBar" type="ProgressBar" parent="Root/Vitals/Rows/CoreRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(150, 18)
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.001
+value = 1.0
+show_percentage = false
+mouse_filter = 2
+theme_override_styles/fill = SubResource("sub5")
+
+[node name="Resources" type="PanelContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -130.0
+offset_top = 12.0
+offset_right = 130.0
+offset_bottom = 56.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="Counters" type="HBoxContainer" parent="Root/Resources"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 18
+
+[node name="Clock" type="PanelContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -232.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = 96.0
+grow_horizontal = 0
+mouse_filter = 2
+
+[node name="ClockRows" type="VBoxContainer" parent="Root/Clock"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PhaseRow" type="HBoxContainer" parent="Root/Clock/ClockRows"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PhaseIcon" type="TextureRect" parent="Root/Clock/ClockRows/PhaseRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(28, 28)
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture_filter = 1
+texture = ExtResource("ext6")
+
+[node name="PhaseLabel" type="Label" parent="Root/Clock/ClockRows/PhaseRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+label_settings = SubResource("sub3")
+text = "Day 1"
+
+[node name="PhaseTime" type="Label" parent="Root/Clock/ClockRows/PhaseRow"]
 layout_mode = 2
 label_settings = SubResource("sub1")
+text = "0s"
 
-[node name="Message" type="Label" parent="."]
-layout_mode = 3
+[node name="PhaseBar" type="ProgressBar" parent="Root/Clock/ClockRows"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 12)
+max_value = 1.0
+step = 0.001
+show_percentage = false
+mouse_filter = 2
+theme_override_styles/fill = SubResource("sub6")
+
+[node name="EnemyLabel" type="Label" parent="Root/Clock/ClockRows"]
+layout_mode = 2
+label_settings = SubResource("sub1")
+text = "Enemies: 0"
+
+[node name="HotbarPanel" type="VBoxContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -112.0
+offset_right = 160.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="BuildInfo" type="Label" parent="Root/HotbarPanel"]
+layout_mode = 2
+label_settings = SubResource("sub1")
+horizontal_alignment = 1
+text = ""
+
+[node name="Hotbar" type="HBoxContainer" parent="Root/HotbarPanel"]
+layout_mode = 2
+alignment = 1
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="Hints" type="Label" parent="Root"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -70.0
+offset_right = 260.0
+offset_bottom = -12.0
+grow_vertical = 0
+label_settings = SubResource("sub1")
+mouse_filter = 2
+
+[node name="Inventory" type="PanelContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -120.0
+offset_right = 150.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+visible = false
+
+[node name="InvRows" type="VBoxContainer" parent="Root/Inventory"]
+layout_mode = 2
+
+[node name="InvTitle" type="Label" parent="Root/Inventory/InvRows"]
+layout_mode = 2
+label_settings = SubResource("sub3")
+text = "Inventory"
+horizontal_alignment = 1
+
+[node name="Grid" type="GridContainer" parent="Root/Inventory/InvRows"]
+layout_mode = 2
+columns = 4
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 6
+
+[node name="InvHint" type="Label" parent="Root/Inventory/InvRows"]
+layout_mode = 2
+label_settings = SubResource("sub1")
+horizontal_alignment = 1
+text = "Click a slot, then another, to move or merge stacks.\nTab / Esc to close."
+
+[node name="Message" type="Label" parent="Root"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 label_settings = SubResource("sub2")
 horizontal_alignment = 1
 vertical_alignment = 1
 visible = false
+mouse_filter = 2

@@ -1,12 +1,19 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/deposit.gd" id="ext1"]
-[ext_resource type="Texture2D" path="res://assets/sprites/crystal.png" id="ext2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/shadow.png" id="ext2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/crystal.png" id="ext3"]
 
 [node name="CrystalDeposit" type="Node2D"]
 script = ExtResource("ext1")
 item = "crystal"
 amount = 150
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Shadow" type="Sprite2D" parent="."]
 texture = ExtResource("ext2")
+position = Vector2(0, 12)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("ext3")
+centered = false
+offset = Vector2(-16, -24)

@@ -1,33 +1,47 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="ext1"]
-[ext_resource type="Texture2D" path="res://assets/sprites/brute.png" id="ext2"]
-[ext_resource type="PackedScene" path="res://scenes/ui/stat_bar.tscn" id="ext3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/shadow.png" id="ext2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/brute.png" id="ext3"]
+[ext_resource type="PackedScene" path="res://scenes/ui/stat_bar.tscn" id="ext4"]
 
 [sub_resource type="CircleShape2D" id="sub1"]
-radius = 16
+radius = 15
 
 [sub_resource type="AtlasTexture" id="sub2"]
-atlas = ExtResource("ext2")
-region = Rect2(0, 0, 32, 32)
+atlas = ExtResource("ext3")
+region = Rect2(0, 0, 40, 36)
 
 [sub_resource type="AtlasTexture" id="sub3"]
-atlas = ExtResource("ext2")
-region = Rect2(32, 0, 32, 32)
+atlas = ExtResource("ext3")
+region = Rect2(40, 0, 40, 36)
 
-[sub_resource type="SpriteFrames" id="sub4"]
+[sub_resource type="AtlasTexture" id="sub4"]
+atlas = ExtResource("ext3")
+region = Rect2(80, 0, 40, 36)
+
+[sub_resource type="AtlasTexture" id="sub5"]
+atlas = ExtResource("ext3")
+region = Rect2(120, 0, 40, 36)
+
+[sub_resource type="SpriteFrames" id="sub6"]
 animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("sub2")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("sub3")
+}, {
+"duration": 1.0,
+"texture": SubResource("sub4")
+}, {
+"duration": 1.0,
+"texture": SubResource("sub5")
 }],
 "loop": true,
-"name": &"default",
-"speed": 6
+"name": &"walk",
+"speed": 8
 }]
 
 [node name="Brute" type="Area2D"]
@@ -42,14 +56,24 @@ hp_per_night = 5
 speed_per_night = 2
 
 [node name="Shape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
 shape = SubResource("sub1")
 
-[node name="Sprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("sub4")
-autoplay = "default"
+[node name="Shadow" type="Sprite2D" parent="."]
+texture = ExtResource("ext2")
+position = Vector2(0, 1)
+scale = Vector2(1.45, 1)
 
-[node name="HealthBar" parent="." instance=ExtResource("ext3")]
-position = Vector2(-16, -24)
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("sub6")
+animation = &"walk"
+autoplay = "walk"
+centered = false
+offset = Vector2(-20, -32)
+
+[node name="HealthBar" parent="." instance=ExtResource("ext4")]
+position = Vector2(-16, -38)
+z_index = 10
 width = 32
 fill_color = Color(1, 0.4, 0.3, 1)
 visible = false

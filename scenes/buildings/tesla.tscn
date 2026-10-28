@@ -1,39 +1,45 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scripts/buildings/tesla.gd" id="ext1"]
 [ext_resource type="PackedScene" path="res://scenes/projectiles/zap.tscn" id="ext2"]
-[ext_resource type="Texture2D" path="res://assets/sprites/tesla.png" id="ext3"]
-[ext_resource type="PackedScene" path="res://scenes/ui/stat_bar.tscn" id="ext4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/shadow.png" id="ext3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tesla.png" id="ext4"]
+[ext_resource type="PackedScene" path="res://scenes/ui/stat_bar.tscn" id="ext5"]
 
 [sub_resource type="CircleShape2D" id="sub1"]
 radius = 150
 
 [sub_resource type="AtlasTexture" id="sub2"]
-atlas = ExtResource("ext3")
-region = Rect2(0, 0, 32, 32)
+atlas = ExtResource("ext4")
+region = Rect2(0, 0, 32, 56)
 
 [sub_resource type="AtlasTexture" id="sub3"]
-atlas = ExtResource("ext3")
-region = Rect2(32, 0, 32, 32)
+atlas = ExtResource("ext4")
+region = Rect2(32, 0, 32, 56)
 
-[sub_resource type="SpriteFrames" id="sub4"]
+[sub_resource type="AtlasTexture" id="sub4"]
+atlas = ExtResource("ext4")
+region = Rect2(64, 0, 32, 56)
+
+[sub_resource type="SpriteFrames" id="sub5"]
 animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("sub2")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("sub3")
+}, {
+"duration": 1.0,
+"texture": SubResource("sub4")
 }],
 "loop": true,
-"name": &"default",
-"speed": 5
+"name": &"idle",
+"speed": 6
 }]
 
 [node name="TeslaCoil" type="Node2D"]
 script = ExtResource("ext1")
-rotate_pivot = false
 ammo_item = "crystal"
 ammo_per_item = 10
 max_ammo = 40
@@ -41,9 +47,19 @@ fire_interval = 0.8
 max_targets = 3
 zap_scene = ExtResource("ext2")
 
-[node name="Sprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("sub4")
-autoplay = "default"
+[node name="Shadow" type="Sprite2D" parent="."]
+texture = ExtResource("ext3")
+position = Vector2(0, 12)
+
+[node name="Body" type="Node2D" parent="."]
+position = Vector2(0, 16)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Body"]
+sprite_frames = SubResource("sub5")
+animation = &"idle"
+autoplay = "idle"
+centered = false
+offset = Vector2(-16, -56)
 
 [node name="RangeArea" type="Area2D" parent="."]
 collision_layer = 0
@@ -53,13 +69,15 @@ monitorable = false
 [node name="Shape" type="CollisionShape2D" parent="RangeArea"]
 shape = SubResource("sub1")
 
-[node name="AmmoBar" parent="." instance=ExtResource("ext4")]
-position = Vector2(-12, 16)
+[node name="AmmoBar" parent="." instance=ExtResource("ext5")]
+position = Vector2(-12, 18)
+z_index = 10
 width = 24
 fill_color = Color(0.6, 0.95, 1, 1)
 
-[node name="HealthBar" parent="." instance=ExtResource("ext4")]
-position = Vector2(-14, -24)
+[node name="HealthBar" parent="." instance=ExtResource("ext5")]
+position = Vector2(-14, -48)
+z_index = 10
 width = 28
 fill_color = Color(1, 0.4, 0.3, 1)
 visible = false

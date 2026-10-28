@@ -50,7 +50,8 @@ func _process(delta: float) -> void:
 	if player.alive and position.distance_to(player.position) < 180.0:
 		target = player.position
 	var dir := (target - position).normalized()
-	sprite.rotation = dir.angle()
+	if absf(dir.x) > 0.05:
+		sprite.flip_h = dir.x < 0.0
 	var ahead := Defs.world_to_cell(position + dir * 16.0)
 	if Defs.is_core(ahead):
 		_attack(game.core)
@@ -58,12 +59,16 @@ func _process(delta: float) -> void:
 		_attack(game.building_at(ahead))
 	else:
 		position += dir * speed * delta
+		sprite.speed_scale = 1.0
 	if player.alive and position.distance_to(player.position) < 20.0:
 		_attack(player)
 
 
 func _attack(victim: Node) -> void:
+	sprite.speed_scale = 0.0
 	if cooldown > 0.0:
 		return
 	cooldown = 0.8
 	victim.take_damage(damage)
+	sprite.scale = Vector2(1.3, 0.75)  # lunge: squash then spring back
+	create_tween().tween_property(sprite, "scale", Vector2.ONE, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)

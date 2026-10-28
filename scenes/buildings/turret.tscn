@@ -1,18 +1,19 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/buildings/turret.gd" id="ext1"]
 [ext_resource type="PackedScene" path="res://scenes/projectiles/bullet.tscn" id="ext2"]
-[ext_resource type="Texture2D" path="res://assets/sprites/turret_base.png" id="ext3"]
-[ext_resource type="Texture2D" path="res://assets/sprites/turret_barrel.png" id="ext4"]
-[ext_resource type="Texture2D" path="res://assets/sprites/turret_cap.png" id="ext5"]
-[ext_resource type="PackedScene" path="res://scenes/ui/stat_bar.tscn" id="ext6"]
+[ext_resource type="Texture2D" path="res://assets/sprites/shadow.png" id="ext3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/turret_base.png" id="ext4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/turret_barrel.png" id="ext5"]
+[ext_resource type="Texture2D" path="res://assets/sprites/muzzle_flash.png" id="ext6"]
+[ext_resource type="Texture2D" path="res://assets/sprites/turret_head.png" id="ext7"]
+[ext_resource type="PackedScene" path="res://scenes/ui/stat_bar.tscn" id="ext8"]
 
 [sub_resource type="CircleShape2D" id="sub1"]
 radius = 260
 
 [node name="GunTurret" type="Node2D"]
 script = ExtResource("ext1")
-rotate_pivot = false
 ammo_item = "ore"
 ammo_per_item = 5
 max_ammo = 30
@@ -20,18 +21,34 @@ fire_interval = 0.35
 max_targets = 1
 bullet_scene = ExtResource("ext2")
 
-[node name="Base" type="Sprite2D" parent="."]
+[node name="Shadow" type="Sprite2D" parent="."]
 texture = ExtResource("ext3")
+position = Vector2(0, 12)
 
-[node name="Pivot" type="Node2D" parent="."]
+[node name="Body" type="Node2D" parent="."]
+position = Vector2(0, 16)
 
-[node name="Barrel" type="Sprite2D" parent="Pivot"]
+[node name="Base" type="Sprite2D" parent="Body"]
 texture = ExtResource("ext4")
 centered = false
-offset = Vector2(-4, -5)
+offset = Vector2(-16, -48)
 
-[node name="Cap" type="Sprite2D" parent="."]
+[node name="Pivot" type="Node2D" parent="Body"]
+position = Vector2(0, -32)
+
+[node name="Barrel" type="Sprite2D" parent="Body/Pivot"]
 texture = ExtResource("ext5")
+centered = false
+offset = Vector2(-6, -5)
+
+[node name="Flash" type="Sprite2D" parent="Body/Pivot"]
+texture = ExtResource("ext6")
+position = Vector2(24, 0)
+visible = false
+
+[node name="Head" type="Sprite2D" parent="Body"]
+texture = ExtResource("ext7")
+position = Vector2(0, -32)
 
 [node name="RangeArea" type="Area2D" parent="."]
 collision_layer = 0
@@ -41,13 +58,15 @@ monitorable = false
 [node name="Shape" type="CollisionShape2D" parent="RangeArea"]
 shape = SubResource("sub1")
 
-[node name="AmmoBar" parent="." instance=ExtResource("ext6")]
-position = Vector2(-12, 16)
+[node name="AmmoBar" parent="." instance=ExtResource("ext8")]
+position = Vector2(-12, 18)
+z_index = 10
 width = 24
 fill_color = Color(1, 0.8, 0.3, 1)
 
-[node name="HealthBar" parent="." instance=ExtResource("ext6")]
-position = Vector2(-14, -24)
+[node name="HealthBar" parent="." instance=ExtResource("ext8")]
+position = Vector2(-14, -40)
+z_index = 10
 width = 28
 fill_color = Color(1, 0.4, 0.3, 1)
 visible = false

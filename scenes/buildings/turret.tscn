@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scripts/buildings/turret.gd" id="ext1"]
 [ext_resource type="PackedScene" path="res://scenes/projectiles/bullet.tscn" id="ext2"]
-[ext_resource type="PackedScene" path="res://scenes/ui/stat_bar.tscn" id="ext3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/turret_base.png" id="ext3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/turret_barrel.png" id="ext4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/turret_cap.png" id="ext5"]
+[ext_resource type="PackedScene" path="res://scenes/ui/stat_bar.tscn" id="ext6"]
 
 [sub_resource type="CircleShape2D" id="sub1"]
 radius = 260
@@ -17,19 +20,18 @@ fire_interval = 0.35
 max_targets = 1
 bullet_scene = ExtResource("ext2")
 
-[node name="Base" type="Polygon2D" parent="."]
-color = Color(0.35, 0.38, 0.45, 1)
-polygon = PackedVector2Array(13, 0, 12.01, 4.97, 9.19, 9.19, 4.97, 12.01, 0, 13, -4.97, 12.01, -9.19, 9.19, -12.01, 4.97, -13, 0, -12.01, -4.97, -9.19, -9.19, -4.97, -12.01, -0, -13, 4.97, -12.01, 9.19, -9.19, 12.01, -4.97)
+[node name="Base" type="Sprite2D" parent="."]
+texture = ExtResource("ext3")
 
 [node name="Pivot" type="Node2D" parent="."]
 
-[node name="Barrel" type="Polygon2D" parent="Pivot"]
-color = Color(0.92, 0.92, 0.95, 1)
-polygon = PackedVector2Array(0, -2.5, 17, -2.5, 17, 2.5, 0, 2.5)
+[node name="Barrel" type="Sprite2D" parent="Pivot"]
+texture = ExtResource("ext4")
+centered = false
+offset = Vector2(-4, -5)
 
-[node name="Cap" type="Polygon2D" parent="."]
-color = Color(0.6, 0.65, 0.75, 1)
-polygon = PackedVector2Array(8, 0, 7.39, 3.06, 5.66, 5.66, 3.06, 7.39, 0, 8, -3.06, 7.39, -5.66, 5.66, -7.39, 3.06, -8, 0, -7.39, -3.06, -5.66, -5.66, -3.06, -7.39, -0, -8, 3.06, -7.39, 5.66, -5.66, 7.39, -3.06)
+[node name="Cap" type="Sprite2D" parent="."]
+texture = ExtResource("ext5")
 
 [node name="RangeArea" type="Area2D" parent="."]
 collision_layer = 0
@@ -39,12 +41,12 @@ monitorable = false
 [node name="Shape" type="CollisionShape2D" parent="RangeArea"]
 shape = SubResource("sub1")
 
-[node name="AmmoBar" parent="." instance=ExtResource("ext3")]
+[node name="AmmoBar" parent="." instance=ExtResource("ext6")]
 position = Vector2(-12, 16)
 width = 24
 fill_color = Color(1, 0.8, 0.3, 1)
 
-[node name="HealthBar" parent="." instance=ExtResource("ext3")]
+[node name="HealthBar" parent="." instance=ExtResource("ext6")]
 position = Vector2(-14, -24)
 width = 28
 fill_color = Color(1, 0.4, 0.3, 1)

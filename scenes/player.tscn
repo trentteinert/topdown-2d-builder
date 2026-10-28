@@ -1,24 +1,20 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="ext1"]
 [ext_resource type="PackedScene" path="res://scenes/projectiles/bullet.tscn" id="ext2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player.png" id="ext3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player_gun.png" id="ext4"]
 
 [node name="Player" type="Node2D"]
 script = ExtResource("ext1")
 bullet_scene = ExtResource("ext2")
 
-[node name="Body" type="Polygon2D" parent="."]
-color = Color(0.85, 0.95, 1, 1)
-polygon = PackedVector2Array(11, 0, 10.34, 3.76, 8.43, 7.07, 5.5, 9.53, 1.91, 10.83, -1.91, 10.83, -5.5, 9.53, -8.43, 7.07, -10.34, 3.76, -11, 0, -10.34, -3.76, -8.43, -7.07, -5.5, -9.53, -1.91, -10.83, 1.91, -10.83, 5.5, -9.53, 8.43, -7.07, 10.34, -3.76)
+[node name="Body" type="Sprite2D" parent="."]
+texture = ExtResource("ext3")
 
-[node name="Outline" type="Line2D" parent="."]
-points = PackedVector2Array(11, 0, 10.34, 3.76, 8.43, 7.07, 5.5, 9.53, 1.91, 10.83, -1.91, 10.83, -5.5, 9.53, -8.43, 7.07, -10.34, 3.76, -11, 0, -10.34, -3.76, -8.43, -7.07, -5.5, -9.53, -1.91, -10.83, 1.91, -10.83, 5.5, -9.53, 8.43, -7.07, 10.34, -3.76)
-width = 2
-default_color = Color(0.2, 0.5, 0.9, 1)
-closed = true
-
-[node name="Gun" type="Polygon2D" parent="."]
-color = Color(1, 1, 1, 1)
-polygon = PackedVector2Array(0, -2, 21, -2, 21, 2, 0, 2)
+[node name="Gun" type="Sprite2D" parent="."]
+texture = ExtResource("ext4")
+centered = false
+offset = Vector2(4, -4)
 
 [node name="Camera2D" type="Camera2D" parent="."]

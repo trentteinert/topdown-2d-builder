@@ -16,6 +16,7 @@ var cooldown := 0.0
 var dead := false
 
 @onready var health_bar: StatBar = $HealthBar
+@onready var sprite: AnimatedSprite2D = $Sprite
 
 
 func _ready() -> void:
@@ -34,6 +35,8 @@ func take_damage(amount: float) -> void:
 	hp -= amount
 	health_bar.show()
 	health_bar.set_fraction(hp / max_hp)
+	sprite.modulate = Color(3, 3, 3)
+	create_tween().tween_property(sprite, "modulate", Color.WHITE, 0.12)
 	if hp <= 0.0:
 		dead = true
 		died.emit(self)
@@ -47,6 +50,7 @@ func _process(delta: float) -> void:
 	if player.alive and position.distance_to(player.position) < 180.0:
 		target = player.position
 	var dir := (target - position).normalized()
+	sprite.rotation = dir.angle()
 	var ahead := Defs.world_to_cell(position + dir * 16.0)
 	if Defs.is_core(ahead):
 		_attack(game.core)

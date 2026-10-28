@@ -22,7 +22,10 @@ const NAMES := {
 	Build.TURRET: "Gun turret",
 	Build.TESLA: "Tesla coil",
 }
-const ITEM_COLORS := {"ore": Color(0.85, 0.55, 0.3), "crystal": Color(0.4, 0.95, 1.0)}
+const ITEM_TEXTURES := {
+	"ore": preload("res://assets/sprites/item_ore.png"),
+	"crystal": preload("res://assets/sprites/item_crystal.png"),
+}
 
 
 static func world_to_cell(p: Vector2) -> Vector2i:

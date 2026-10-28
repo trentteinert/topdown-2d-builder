@@ -1,28 +1,42 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/buildings/drill.gd" id="ext1"]
-[ext_resource type="PackedScene" path="res://scenes/ui/stat_bar.tscn" id="ext2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/drill.png" id="ext2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/stat_bar.tscn" id="ext3"]
+
+[sub_resource type="AtlasTexture" id="sub1"]
+atlas = ExtResource("ext2")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="sub2"]
+atlas = ExtResource("ext2")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="sub3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("sub1")
+},
+{
+"duration": 1.0,
+"texture": SubResource("sub2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6
+}]
 
 [node name="Drill" type="Node2D"]
 script = ExtResource("ext1")
 
-[node name="Plate" type="Polygon2D" parent="."]
-color = Color(0.2, 0.45, 0.45, 1)
-polygon = PackedVector2Array(-14, -14, 14, -14, 14, 14, -14, 14)
-
-[node name="Frame" type="Line2D" parent="."]
-points = PackedVector2Array(-14, -14, 14, -14, 14, 14, -14, 14)
-width = 2
-default_color = Color(0.6, 0.9, 0.9, 1)
-closed = true
-
 [node name="Pivot" type="Node2D" parent="."]
 
-[node name="Marker" type="Polygon2D" parent="Pivot"]
-color = Color(1, 0.85, 0.3, 1)
-polygon = PackedVector2Array(15, 0, 6, 6, 6, -6)
+[node name="Sprite" type="AnimatedSprite2D" parent="Pivot"]
+sprite_frames = SubResource("sub3")
+autoplay = "default"
 
-[node name="HealthBar" parent="." instance=ExtResource("ext2")]
+[node name="HealthBar" parent="." instance=ExtResource("ext3")]
 position = Vector2(-14, -22)
 width = 28
 fill_color = Color(1, 0.4, 0.3, 1)

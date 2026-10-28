@@ -7,7 +7,7 @@ const MOVE_TIME := 0.3
 var item := ""
 var progress := 0.0
 
-@onready var dot: Polygon2D = $ItemDot
+@onready var dot: Sprite2D = $ItemDot
 
 
 func accepts(_item: String) -> bool:
@@ -17,7 +17,7 @@ func accepts(_item: String) -> bool:
 func receive(new_item: String) -> void:
 	item = new_item
 	progress = 0.0
-	dot.color = Defs.ITEM_COLORS[new_item]
+	dot.texture = Defs.ITEM_TEXTURES[new_item]
 	dot.show()
 
 

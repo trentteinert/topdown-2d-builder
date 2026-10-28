@@ -1,27 +1,63 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/buildings/conveyor.gd" id="ext1"]
-[ext_resource type="PackedScene" path="res://scenes/ui/stat_bar.tscn" id="ext2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/conveyor.png" id="ext2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/item_ore.png" id="ext3"]
+[ext_resource type="PackedScene" path="res://scenes/ui/stat_bar.tscn" id="ext4"]
+
+[sub_resource type="AtlasTexture" id="sub1"]
+atlas = ExtResource("ext2")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="sub2"]
+atlas = ExtResource("ext2")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="sub3"]
+atlas = ExtResource("ext2")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="sub4"]
+atlas = ExtResource("ext2")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="sub5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("sub1")
+},
+{
+"duration": 1.0,
+"texture": SubResource("sub2")
+},
+{
+"duration": 1.0,
+"texture": SubResource("sub3")
+},
+{
+"duration": 1.0,
+"texture": SubResource("sub4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8
+}]
 
 [node name="Conveyor" type="Node2D"]
 script = ExtResource("ext1")
 
-[node name="Plate" type="Polygon2D" parent="."]
-color = Color(0.2, 0.22, 0.26, 1)
-polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
-
 [node name="Pivot" type="Node2D" parent="."]
 
-[node name="Arrow" type="Polygon2D" parent="Pivot"]
-color = Color(0.45, 0.5, 0.6, 1)
-polygon = PackedVector2Array(10, 0, -6, 8, -6, -8)
+[node name="Sprite" type="AnimatedSprite2D" parent="Pivot"]
+sprite_frames = SubResource("sub5")
+autoplay = "default"
 
-[node name="ItemDot" type="Polygon2D" parent="."]
-color = Color(1, 1, 1, 1)
-polygon = PackedVector2Array(5, 0, 4.05, 2.94, 1.55, 4.76, -1.55, 4.76, -4.05, 2.94, -5, 0, -4.05, -2.94, -1.55, -4.76, 1.55, -4.76, 4.05, -2.94)
+[node name="ItemDot" type="Sprite2D" parent="."]
+texture = ExtResource("ext3")
 visible = false
 
-[node name="HealthBar" parent="." instance=ExtResource("ext2")]
+[node name="HealthBar" parent="." instance=ExtResource("ext4")]
 position = Vector2(-14, -22)
 width = 28
 fill_color = Color(1, 0.4, 0.3, 1)

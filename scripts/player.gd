@@ -13,7 +13,7 @@ var respawn_timer := 0.0
 var shoot_cooldown := 0.0
 var mine_cooldown := 0.0
 
-@onready var gun: Polygon2D = $Gun
+@onready var gun: Sprite2D = $Gun
 @onready var camera: Camera2D = $Camera2D
 
 
@@ -37,6 +37,7 @@ func _process(delta: float) -> void:
 	position += d.normalized() * speed * delta
 	position = position.clamp(Vector2(8, 8), Vector2(Defs.W, Defs.H) * Defs.TILE - Vector2(8, 8))
 	gun.rotation = (get_global_mouse_position() - global_position).angle()
+	gun.flip_v = absf(gun.rotation) > PI / 2.0
 	shoot_cooldown -= delta
 	mine_cooldown -= delta
 	if Input.is_key_pressed(KEY_SPACE) and mine_cooldown <= 0.0:

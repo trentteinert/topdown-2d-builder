@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/deposit.gd" id="ext1"]
+
+[node name="CrystalDeposit" type="Node2D"]
+script = ExtResource("ext1")
+item = "crystal"
+amount = 150
+
+[node name="Shard" type="Polygon2D" parent="."]
+color = Color(0.4, 0.95, 1, 1)
+polygon = PackedVector2Array(0, -13, 9, 0, 0, 13, -9, 0)
+
+[node name="Edge" type="Line2D" parent="."]
+points = PackedVector2Array(0, -13, 9, 0, 0, 13, -9, 0)
+width = 1.5
+default_color = Color(0.1, 0.4, 0.6, 1)
+closed = true

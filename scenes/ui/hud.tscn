@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="ext1"]
+
+[sub_resource type="LabelSettings" id="sub1"]
+font_size = 16
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="sub2"]
+font_size = 44
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="HUD" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("ext1")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="Layout" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Status" type="Label" parent="Margin/Layout"]
+layout_mode = 2
+label_settings = SubResource("sub1")
+
+[node name="Resources" type="Label" parent="Margin/Layout"]
+layout_mode = 2
+label_settings = SubResource("sub1")
+
+[node name="Vitals" type="Label" parent="Margin/Layout"]
+layout_mode = 2
+label_settings = SubResource("sub1")
+
+[node name="Selection" type="Label" parent="Margin/Layout"]
+layout_mode = 2
+label_settings = SubResource("sub1")
+
+[node name="Spacer" type="Control" parent="Margin/Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Hints" type="Label" parent="Margin/Layout"]
+layout_mode = 2
+label_settings = SubResource("sub1")
+
+[node name="Message" type="Label" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+label_settings = SubResource("sub2")
+horizontal_alignment = 1
+vertical_alignment = 1
+visible = false

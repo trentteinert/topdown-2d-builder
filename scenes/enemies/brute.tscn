@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="ext1"]
+[ext_resource type="PackedScene" path="res://scenes/ui/stat_bar.tscn" id="ext2"]
+
+[sub_resource type="CircleShape2D" id="sub1"]
+radius = 16
+
+[node name="Brute" type="Area2D"]
+script = ExtResource("ext1")
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+max_hp = 90
+speed = 45
+damage = 15
+hp_per_night = 5
+speed_per_night = 2
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+shape = SubResource("sub1")
+
+[node name="Body" type="Polygon2D" parent="."]
+color = Color(0.55, 0.15, 0.7, 1)
+polygon = PackedVector2Array(16, 0, 14.42, 6.94, 9.98, 12.51, 3.56, 15.6, -3.56, 15.6, -9.98, 12.51, -14.42, 6.94, -16, 0, -14.42, -6.94, -9.98, -12.51, -3.56, -15.6, 3.56, -15.6, 9.98, -12.51, 14.42, -6.94)
+
+[node name="EyeL" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 1)
+polygon = PackedVector2Array(-2.8, -3.2, -3.8, -1.47, -5.8, -1.47, -6.8, -3.2, -5.8, -4.93, -3.8, -4.93)
+
+[node name="EyeR" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 1)
+polygon = PackedVector2Array(6.8, -3.2, 5.8, -1.47, 3.8, -1.47, 2.8, -3.2, 3.8, -4.93, 5.8, -4.93)
+
+[node name="HealthBar" parent="." instance=ExtResource("ext2")]
+position = Vector2(-16, -24)
+width = 32
+fill_color = Color(1, 0.4, 0.3, 1)
+visible = false

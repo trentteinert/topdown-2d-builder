@@ -1,0 +1,41 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="ext1"]
+[ext_resource type="Script" path="res://scripts/day_night.gd" id="ext2"]
+[ext_resource type="Script" path="res://scripts/spawner.gd" id="ext3"]
+[ext_resource type="PackedScene" path="res://scenes/world.tscn" id="ext4"]
+[ext_resource type="PackedScene" path="res://scenes/core.tscn" id="ext5"]
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="ext6"]
+[ext_resource type="PackedScene" path="res://scenes/builder.tscn" id="ext7"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="ext8"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/enemy.tscn" id="ext9"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/brute.tscn" id="ext10"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("ext1")
+
+[node name="DayNight" type="CanvasModulate" parent="."]
+script = ExtResource("ext2")
+
+[node name="World" parent="." instance=ExtResource("ext4")]
+
+[node name="Core" parent="." instance=ExtResource("ext5")]
+
+[node name="Buildings" type="Node2D" parent="."]
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Projectiles" type="Node2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("ext6")]
+
+[node name="Builder" parent="." instance=ExtResource("ext7")]
+
+[node name="Spawner" type="Node" parent="."]
+script = ExtResource("ext3")
+crawler_scene = ExtResource("ext9")
+brute_scene = ExtResource("ext10")
+
+[node name="SpawnTimer" type="Timer" parent="Spawner"]
+
+[node name="HUD" parent="." instance=ExtResource("ext8")]

@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/buildings/tesla.gd" id="ext1"]
+[ext_resource type="PackedScene" path="res://scenes/projectiles/zap.tscn" id="ext2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/stat_bar.tscn" id="ext3"]
+
+[sub_resource type="CircleShape2D" id="sub1"]
+radius = 150
+
+[node name="TeslaCoil" type="Node2D"]
+script = ExtResource("ext1")
+rotate_pivot = false
+ammo_item = "crystal"
+ammo_per_item = 10
+max_ammo = 40
+fire_interval = 0.8
+max_targets = 3
+zap_scene = ExtResource("ext2")
+
+[node name="Base" type="Polygon2D" parent="."]
+color = Color(0.3, 0.2, 0.5, 1)
+polygon = PackedVector2Array(13, 0, 12.01, 4.97, 9.19, 9.19, 4.97, 12.01, 0, 13, -4.97, 12.01, -9.19, 9.19, -12.01, 4.97, -13, 0, -12.01, -4.97, -9.19, -9.19, -4.97, -12.01, -0, -13, 4.97, -12.01, 9.19, -9.19, 12.01, -4.97)
+
+[node name="Ring" type="Line2D" parent="."]
+points = PackedVector2Array(13, 0, 12.36, 4.02, 10.52, 7.64, 7.64, 10.52, 4.02, 12.36, 0, 13, -4.02, 12.36, -7.64, 10.52, -10.52, 7.64, -12.36, 4.02, -13, 0, -12.36, -4.02, -10.52, -7.64, -7.64, -10.52, -4.02, -12.36, -0, -13, 4.02, -12.36, 7.64, -10.52, 10.52, -7.64, 12.36, -4.02)
+width = 2
+default_color = Color(0.6, 0.5, 1, 1)
+closed = true
+
+[node name="Spark" type="Polygon2D" parent="."]
+color = Color(0.7, 0.95, 1, 1)
+polygon = PackedVector2Array(6, 0, 5.54, 2.3, 4.24, 4.24, 2.3, 5.54, 0, 6, -2.3, 5.54, -4.24, 4.24, -5.54, 2.3, -6, 0, -5.54, -2.3, -4.24, -4.24, -2.3, -5.54, -0, -6, 2.3, -5.54, 4.24, -4.24, 5.54, -2.3)
+
+[node name="RangeArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="RangeArea"]
+shape = SubResource("sub1")
+
+[node name="AmmoBar" parent="." instance=ExtResource("ext3")]
+position = Vector2(-12, 16)
+width = 24
+fill_color = Color(0.6, 0.95, 1, 1)
+
+[node name="HealthBar" parent="." instance=ExtResource("ext3")]
+position = Vector2(-14, -24)
+width = 28
+fill_color = Color(1, 0.4, 0.3, 1)
+visible = false

@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/builder.gd" id="ext1"]
+
+[node name="Builder" type="Node2D"]
+script = ExtResource("ext1")
+
+[node name="Ghost" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 32.0
+mouse_filter = 2
+visible = false
+color = Color(0.3, 1, 0.4, 0.45)
+
+[node name="Arrow" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0.8)
+polygon = PackedVector2Array(12, 0, -4, 8, -4, -8)
+visible = false
+
+[node name="RangeRing" type="Line2D" parent="."]
+width = 1.5
+default_color = Color(1, 1, 1, 0.18)
+visible = false

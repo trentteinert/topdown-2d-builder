@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/world.gd" id="ext1"]
+[ext_resource type="Shader" path="res://shaders/grid.gdshader" id="ext2"]
+[ext_resource type="PackedScene" path="res://scenes/deposits/ore.tscn" id="ext3"]
+[ext_resource type="PackedScene" path="res://scenes/deposits/crystal.tscn" id="ext4"]
+
+[sub_resource type="ShaderMaterial" id="sub1"]
+shader = ExtResource("ext2")
+
+[node name="World" type="Node2D"]
+script = ExtResource("ext1")
+ore_scene = ExtResource("ext3")
+crystal_scene = ExtResource("ext4")
+
+[node name="Ground" type="ColorRect" parent="."]
+material = SubResource("sub1")
+layout_mode = 0
+offset_right = 2880.0
+offset_bottom = 1920.0
+mouse_filter = 2
+
+[node name="Border" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 2880, 0, 2880, 1920, 0, 1920)
+width = 4
+default_color = Color(0.5, 0.2, 0.3, 1)
+closed = true
+
+[node name="Deposits" type="Node2D" parent="."]
